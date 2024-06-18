@@ -1,5 +1,5 @@
 {
-    "include": ["scripts", "define.d.ts"],
+    "include": ["scripts"],
     "exclude": [],
     "compilerOptions": {
         "sourceMap": true,

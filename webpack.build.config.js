@@ -13,9 +13,12 @@ const baseDir = __dirname;
 
 module.exports = {
     entry: {
-        index: path.resolve(baseDir, "scripts/index.ts"),
-        dev: path.resolve(baseDir, "scripts/Devtools.ts"),
+        index: path.resolve(baseDir, "scripts/view/index.ts"),
+        dev: path.resolve(baseDir, "scripts/view/Devtools.ts"),
         Background: path.resolve(baseDir, "scripts/Background.ts"),
+        ContentScript: path.resolve(baseDir, "scripts/ContentScript.ts"),
+        RunScript: path.resolve(baseDir, "scripts/RunScript.ts"),
+        RunScriptLoader: path.resolve(baseDir, "scripts/RunScriptLoader.ts"),
     },
     output: {
         path: path.join(baseDir, "/build"),
