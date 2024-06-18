@@ -34,7 +34,12 @@ class StoreManager implements Devtools.DevToolsAPI {
     }
 
     public getStores(): IStoreEntries[] {
-        return [...this.storeMap.entries()].map((value) => ({ id: value[0], ...value[1] }));
+        return [...this.storeMap.entries()].map((value) => ({
+            id: value[0],
+            title: value[1].title,
+            name: value[1].name,
+            store: value[1].store.getState(),
+        }));
     }
 }
 
