@@ -13,7 +13,7 @@ const baseDir = __dirname;
 
 module.exports = {
     entry: {
-        index: path.resolve(baseDir, "scripts/view/index.ts"),
+        index: path.resolve(baseDir, "scripts/view/index-dev.ts"),
         dev: path.resolve(baseDir, "scripts/view/Devtools.ts"),
         Background: path.resolve(baseDir, "scripts/Background.ts"),
         ContentScript: path.resolve(baseDir, "scripts/ContentScript.ts"),
@@ -21,7 +21,7 @@ module.exports = {
         RunScriptLoader: path.resolve(baseDir, "scripts/RunScriptLoader.ts"),
     },
     output: {
-        path: path.join(baseDir, "/build"),
+        path: path.join(baseDir, "/dev"),
         filename: "scripts/[name].js",
         chunkFilename: "scripts/[name].chunks.[contenthash:6].js",
         environment: {
@@ -38,12 +38,6 @@ module.exports = {
             template: path.resolve(baseDir, "./static/index.html"),
             filename: "index.html",
             chunks: ["index"],
-        }),
-        new HtmlWebpackPlugin({
-            title: "tianyu-store devtools",
-            template: path.resolve(baseDir, "./static/devtools.html"),
-            filename: "devtools.html",
-            chunks: ["dev"],
         }),
         new MiniCssExtractPlugin({
             filename: "css/[name].css",

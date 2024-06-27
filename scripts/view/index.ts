@@ -3,7 +3,7 @@
 export {};
 const container = document.getElementById("tianyu-store-devtools-container");
 if (container) {
-    import("./message-center/MessageHandler").then(({ getStores }) => {
+    import("../message-center/MessageHandler").then(({ getStores }) => {
         const storeData = getStores();
         storeData.then((value) => {
             const div = document.createElement("div");

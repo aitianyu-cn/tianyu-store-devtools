@@ -1,6 +1,6 @@
 /** @format */
-import { TIANYU_STORE_DEVTOOLS_NAMESPACE } from "../../common/Constant";
-import { IStoreEntries } from "../../common/Interface";
+import { TIANYU_STORE_DEVTOOLS_NAMESPACE } from "../common/Constant";
+import { IStoreEntries } from "../common/Interface";
 import { sendMessage } from "webext-bridge/devtools";
 import { setNamespace } from "webext-bridge/window";
 
@@ -11,3 +11,5 @@ export async function getStores(): Promise<IStoreEntries[]> {
         return value;
     });
 }
+
+export class MessageHandler {}
