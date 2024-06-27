@@ -7,5 +7,4 @@ export interface IStoreEntries {
     id: string;
     title: string;
     name: string;
-    store: MapOfType<any>;
 }
