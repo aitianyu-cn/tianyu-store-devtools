@@ -15,7 +15,6 @@ if (container) {
                 id: ${item.id}
                 name: ${item.name}
                 title: ${item.title}
-                store: ${JSON.stringify(item.store)}
             }`;
                 console.log(idiv.innerText);
                 div.appendChild(idiv);

@@ -12,8 +12,8 @@ import {
 } from "@aitianyu.cn/tianyu-store";
 import { IStoreDevAPI } from "@aitianyu.cn/tianyu-store";
 import { MapOfType } from "@aitianyu.cn/types";
-import { STORE_STATE_INSTANCE } from "@aitianyu.cn/tianyu-store/dist/types/src/store/storage/interface/StoreState";
 import { IStoreEntries } from "./common/Interface";
+import { convertStoreActions, convertStoreError, convertStoreSelectors } from "./tools/TransactionConverter";
 
 setNamespace(TIANYU_STORE_DEVTOOLS_NAMESPACE);
 
@@ -156,7 +156,7 @@ class StoreManager implements Devtools.DevToolsAPI {
             return;
         }
 
-        sendMessage("on-store-current-action-dispatched", action, "window").catch((reason) => {
+        sendMessage("on-store-current-action-dispatched", convertStoreActions(action), "window").catch((reason) => {
             //
         });
     }
@@ -164,8 +164,7 @@ class StoreManager implements Devtools.DevToolsAPI {
         if (!this.pageInited) {
             return;
         }
-
-        sendMessage("on-store-current-selector-executed", selector, "window").catch((reason) => {
+        sendMessage("on-store-current-selector-executed", convertStoreSelectors(selector), "window").catch((reason) => {
             //
         });
     }
@@ -174,7 +173,7 @@ class StoreManager implements Devtools.DevToolsAPI {
             return;
         }
 
-        sendMessage("on-store-current-error-occurs", error, "window").catch((reason) => {
+        sendMessage("on-store-current-error-occurs", convertStoreError(error), "window").catch((reason) => {
             //
         });
     }
@@ -201,15 +200,15 @@ onMessage("get-stores", async () => {
 });
 
 onMessage("get-current-dispatched-actions", async () => {
-    return storeManager.getActions();
+    return storeManager.getActions().map((value) => convertStoreActions(value));
 });
 
 onMessage("get-current-selectors", async () => {
-    return storeManager.getSelectors();
+    return storeManager.getSelectors().map((value) => convertStoreSelectors(value));
 });
 
 onMessage("get-current-errors", async () => {
-    return storeManager.getErrors();
+    return storeManager.getErrors().map((value) => convertStoreError(value));
 });
 
 onMessage("get-current-state", async () => {

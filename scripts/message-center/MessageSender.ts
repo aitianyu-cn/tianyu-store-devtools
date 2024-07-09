@@ -1,15 +1,9 @@
 /** @format */
 
-import {
-    TransactionOperationRecord,
-    IInstanceAction,
-    IInstanceSelector,
-    TransactionErrorRecord,
-    IterableType,
-} from "@aitianyu.cn/tianyu-store";
+import { IterableType } from "@aitianyu.cn/tianyu-store";
 import { MapOfType } from "@aitianyu.cn/types";
 import { TIANYU_STORE_DEVTOOLS_NAMESPACE } from "scripts/common/Constant";
-import { IStoreEntries } from "scripts/common/Interface";
+import { IStoreAction, IStoreEntries, IStoreErrors, IStoreRecord, IStoreSelector } from "scripts/common/Interface";
 import { sendMessage } from "webext-bridge/devtools";
 import { setNamespace } from "webext-bridge/window";
 
@@ -22,19 +16,19 @@ export class MessageSender {
         });
     }
 
-    public static async getDispatchedActions(): Promise<TransactionOperationRecord<IInstanceAction>[]> {
+    public static async getDispatchedActions(): Promise<IStoreRecord<IStoreAction>[]> {
         return sendMessage("get-current-dispatched-actions", undefined, "window").then((value) => {
             return value;
         });
     }
 
-    public static async getExecutedSelectors(): Promise<TransactionOperationRecord<IInstanceSelector<any>>[]> {
+    public static async getExecutedSelectors(): Promise<IStoreRecord<IStoreSelector>[]> {
         return sendMessage("get-current-selectors", undefined, "window").then((value) => {
             return value;
         });
     }
 
-    public static async getStoreErrors(): Promise<TransactionErrorRecord[]> {
+    public static async getStoreErrors(): Promise<IStoreErrors[]> {
         return sendMessage("get-current-errors", undefined, "window").then((value) => {
             return value;
         });

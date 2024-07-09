@@ -9,7 +9,7 @@ import {
 } from "@aitianyu.cn/tianyu-store";
 import { MapOfType } from "@aitianyu.cn/types";
 import { ProtocolWithReturn } from "webext-bridge";
-import { IStoreEntries } from "./Interface";
+import { IStoreAction, IStoreEntries, IStoreErrors, IStoreRecord, IStoreSelector } from "./Interface";
 
 declare module "webext-bridge" {
     export interface ProtocolMap {
@@ -17,15 +17,15 @@ declare module "webext-bridge" {
 
         "get-stores": ProtocolWithReturn<void, IStoreEntries[]>;
 
-        "get-current-dispatched-actions": ProtocolWithReturn<void, TransactionOperationRecord<IInstanceAction>[]>;
-        "get-current-selectors": ProtocolWithReturn<void, TransactionOperationRecord<IInstanceSelector<any>>[]>;
-        "get-current-errors": ProtocolWithReturn<void, TransactionErrorRecord[]>;
+        "get-current-dispatched-actions": ProtocolWithReturn<void, IStoreRecord<IStoreAction>[]>;
+        "get-current-selectors": ProtocolWithReturn<void, IStoreRecord<IStoreSelector>[]>;
+        "get-current-errors": ProtocolWithReturn<void, IStoreErrors[]>;
         "get-current-state": ProtocolWithReturn<void, MapOfType<IterableType>>;
 
         "on-store-registery-changed": IStoreEntries[];
-        "on-store-current-action-dispatched": TransactionOperationRecord<IInstanceAction>;
-        "on-store-current-selector-executed": TransactionOperationRecord<IInstanceSelector<any>>;
-        "on-store-current-error-occurs": TransactionErrorRecord;
+        "on-store-current-action-dispatched": IStoreRecord<IStoreAction>;
+        "on-store-current-selector-executed": IStoreRecord<IStoreSelector>;
+        "on-store-current-error-occurs": IStoreErrors;
         "on-store-current-state-changed": MapOfType<IterableType>;
     }
 }
