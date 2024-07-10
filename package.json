@@ -24,7 +24,7 @@
     "devDependencies": {
         "@aitianyu.cn/client-base": "latest",
         "@aitianyu.cn/tianyu-shell": "latest",
-        "@aitianyu.cn/tianyu-store": "^0.2.4",
+        "@aitianyu.cn/tianyu-store": "^0.2.5",
         "@aitianyu.cn/types": "latest",
         "@babel/core": "^7.24.6",
         "@babel/preset-env": "^7.24.6",
