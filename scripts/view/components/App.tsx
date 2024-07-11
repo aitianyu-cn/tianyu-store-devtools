@@ -125,7 +125,7 @@ export class App extends React.Component<{ store: IStore }, {}> {
         _: AppOperationSelection | undefined,
         newSelection: AppOperationSelection | undefined,
     ): void {
-        if (newSelection) {
+        if (newSelection !== undefined) {
             this.selection = newSelection;
             this.forceUpdate();
         }
