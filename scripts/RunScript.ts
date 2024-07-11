@@ -4,6 +4,7 @@ import { onMessage, sendMessage, setNamespace } from "webext-bridge/window";
 import { TIANYU_STORE_DEVTOOLS_NAMESPACE } from "./common/Constant";
 import {
     Devtools,
+    IDifferences,
     IInstanceAction,
     IInstanceSelector,
     IterableType,
@@ -51,6 +52,10 @@ class StoreManager implements Devtools.DevToolsAPI {
         if (this.storeMap.delete(store.id)) {
             this.onStoreRegisteryChanged();
         }
+
+        if (store.id === this.currentStore) {
+            this.currentStore = "";
+        }
     }
 
     public setInited(init: boolean): void {
@@ -91,8 +96,8 @@ class StoreManager implements Devtools.DevToolsAPI {
 
         return store.store.getAllErrors();
     }
-    public getStoreState(): MapOfType<IterableType> {
-        const store = this.storeMap.get(this.currentStore);
+    public getStoreState(storeName?: string): MapOfType<IterableType> {
+        const store = storeName ? this.storeMap.get(storeName) : this.storeMap.get(this.currentStore);
         if (!store) {
             return {};
         }
@@ -104,6 +109,17 @@ class StoreManager implements Devtools.DevToolsAPI {
         // }
 
         return store.store.getState();
+    }
+    public getHistory(): {
+        histroy: IDifferences[];
+        index: number;
+    } {
+        const store = this.storeMap.get(this.currentStore);
+        if (!store) {
+            return { histroy: [], index: -1 };
+        }
+
+        return store.store.getHistories();
     }
     public getAllStores(): IStoreEntries[] {
         const storeList: IStoreEntries[] = [];
@@ -195,6 +211,10 @@ onMessage("page-state-change", async (data) => {
     storeManager.setInited(data.data);
 });
 
+onMessage("set-store-monitor", async (data) => {
+    storeManager.setCurrentMonitorStore(data.data);
+});
+
 onMessage("get-stores", async () => {
     return storeManager.getAllStores();
 });
@@ -211,6 +231,10 @@ onMessage("get-current-errors", async () => {
     return storeManager.getErrors().map((value) => convertStoreError(value));
 });
 
-onMessage("get-current-state", async () => {
-    return storeManager.getStoreState();
+onMessage("get-current-state", async (data) => {
+    return storeManager.getStoreState(data.data);
+});
+
+onMessage("get-history", async () => {
+    return storeManager.getHistory();
 });

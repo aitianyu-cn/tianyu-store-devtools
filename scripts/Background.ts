@@ -1,5 +1,5 @@
 /** @format */
 
-import * as WebBridgeBackground from "webext-bridge/background";
+import { onMessage } from "webext-bridge/background";
 
-WebBridgeBackground.onMessage;
+onMessage;

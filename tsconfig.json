@@ -21,6 +21,8 @@
         "noEmit": false,
         "baseUrl": ".",
         "outDir": "./dist",
-        "paths": {}
+        "paths": {
+            "scripts/*": ["scripts/*"]
+        }
     }
 }

@@ -3,8 +3,8 @@
 export {};
 const container = document.getElementById("tianyu-store-devtools-container");
 if (container) {
-    import("../message-center/MessageHandler").then(({ getStores }) => {
-        const storeData = getStores();
+    import("../message-center/MessageSender").then(({ MessageSender }) => {
+        const storeData = MessageSender.getStores();
         storeData.then((value) => {
             const div = document.createElement("div");
             div.style.minHeight = "30px";

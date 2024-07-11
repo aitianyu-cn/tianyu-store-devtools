@@ -1,7 +1,7 @@
 /** @format */
 
 import { ActionType, IInstanceAction, IterableType } from "@aitianyu.cn/tianyu-store";
-import { IStoreAction, IStoreEntries, IStoreErrors, IStoreSelector } from "scripts/common/Interface";
+import { IStoreAction, IStoreEntries, IStoreErrors, IStoreRecord, IStoreSelector } from "scripts/common/Interface";
 
 export enum AppOperationSelection {
     STATE,
@@ -16,12 +16,15 @@ export interface IDevtoolsUIState extends IterableType {
     current: AppOperationSelection;
 }
 
+export interface IDevtoolsDataCurrentState extends IterableType {
+    store: string;
+    state: any;
+    actions: IStoreRecord<IStoreAction>[];
+    selectors: IStoreRecord<IStoreSelector>[];
+    errors: IStoreErrors[];
+}
+
 export interface IDevtoolsDataState extends IterableType {
     stores: IStoreEntries[];
-    current?: {
-        store: string;
-        actions: IStoreAction[];
-        selectors: IStoreSelector[];
-        errors: IStoreErrors[];
-    };
+    current?: IDevtoolsDataCurrentState;
 }

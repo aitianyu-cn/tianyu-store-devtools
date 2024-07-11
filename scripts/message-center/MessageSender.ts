@@ -1,19 +1,28 @@
 /** @format */
 
-import { IterableType } from "@aitianyu.cn/tianyu-store";
+import { IDifferences, IterableType } from "@aitianyu.cn/tianyu-store";
 import { MapOfType } from "@aitianyu.cn/types";
-import { TIANYU_STORE_DEVTOOLS_NAMESPACE } from "scripts/common/Constant";
 import { IStoreAction, IStoreEntries, IStoreErrors, IStoreRecord, IStoreSelector } from "scripts/common/Interface";
 import { sendMessage } from "webext-bridge/devtools";
-import { setNamespace } from "webext-bridge/window";
-
-setNamespace(TIANYU_STORE_DEVTOOLS_NAMESPACE);
 
 export class MessageSender {
+    public static async setMoniterStore(storeName: string): Promise<void> {
+        return sendMessage("set-store-monitor", storeName, "window");
+    }
+
+    public static async setPageState(state: boolean): Promise<void> {
+        return sendMessage("page-state-change", state, "window");
+    }
+
     public static async getStores(): Promise<IStoreEntries[]> {
-        return sendMessage("get-stores", undefined, "window").then((value) => {
-            return value;
-        });
+        return sendMessage("get-stores", undefined, "window")
+            .then((value) => {
+                return value;
+            })
+            .catch((e) => {
+                console.log("ERROR: " + e);
+                return [];
+            });
     }
 
     public static async getDispatchedActions(): Promise<IStoreRecord<IStoreAction>[]> {
@@ -34,8 +43,17 @@ export class MessageSender {
         });
     }
 
-    public static async getStoreState(): Promise<MapOfType<IterableType>> {
-        return sendMessage("get-current-state", undefined, "window").then((value) => {
+    public static async getStoreState(storeName?: string): Promise<MapOfType<IterableType>> {
+        return sendMessage("get-current-state", storeName, "window").then((value) => {
+            return value;
+        });
+    }
+
+    public static async getHistory(): Promise<{
+        histroy: IDifferences[];
+        index: number;
+    }> {
+        return sendMessage("get-history", undefined, "window").then((value) => {
             return value;
         });
     }

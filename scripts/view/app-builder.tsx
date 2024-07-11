@@ -26,5 +26,5 @@ export async function buildApp(): Promise<React.ReactNode> {
     );
 
     const { App } = await import("./components/App");
-    return <App />;
+    return <App store={store} />;
 }
