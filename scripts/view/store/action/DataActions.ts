@@ -8,7 +8,7 @@ import { ObjectHelper } from "@aitianyu.cn/types";
 
 export const startMonitorStoreAction = ActionFactor.makeActionCreator<IDevtoolsDataState, string>()
     .withHandler(function* (action) {
-        const currentSelection = yield* StoreUtils.Handler.doSelector(getCurrentStore(action.instanceId));
+        const currentSelection = yield* StoreUtils.Handler.doSelectorWithThrow(getCurrentStore(action.instanceId));
         if (currentSelection === action.params) {
             return null;
         }
@@ -36,7 +36,7 @@ export const clearMonitorStoreAction = ActionFactor.makeActionCreator<IDevtoolsD
 
 export const storeRegisteryChangedAction = ActionFactor.makeActionCreator<IDevtoolsDataState, IStoreEntries[]>()
     .withHandler(function* (action) {
-        const currentSelection = yield* StoreUtils.Handler.doSelector(getCurrentStore(action.instanceId));
+        const currentSelection = yield* StoreUtils.Handler.doSelectorWithThrow(getCurrentStore(action.instanceId));
         const isCurrentValid = action.params.find((value) => value.id === currentSelection);
 
         return {

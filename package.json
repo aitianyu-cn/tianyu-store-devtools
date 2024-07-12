@@ -23,9 +23,9 @@
     "license": "ISC",
     "devDependencies": {
         "@aitianyu.cn/client-base": "latest",
-        "@aitianyu.cn/tianyu-shell": "latest",
-        "@aitianyu.cn/tianyu-store": "^0.2.6",
-        "@aitianyu.cn/types": "latest",
+        "@aitianyu.cn/tianyu-shell": "^0.1.7",
+        "@aitianyu.cn/tianyu-store": "^0.2.7",
+        "@aitianyu.cn/types": "0.0.13",
         "@babel/core": "^7.24.6",
         "@babel/preset-env": "^7.24.6",
         "@babel/preset-react": "^7.24.6",
